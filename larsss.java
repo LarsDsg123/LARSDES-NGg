@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Preloader
     const preloader = document.querySelector('.preloader');
     const preloaderProgress = document.querySelector('.preloader-progress-bar');
-    
+
     // Simulate loading progress
     let progress = 0;
     const loadingInterval = setInterval(() => {
@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const html = document.documentElement;
     const logoLight = document.querySelector('.logo-light');
     const logoDark = document.querySelector('.logo-dark');
-    
+
     // Check for saved theme preference or use preferred color scheme
-    const savedTheme = localStorage.getItem('theme') || 
+    const savedTheme = localStorage.getItem('theme') ||
                       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     html.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
-    
+
     themeToggle.addEventListener('click', () => {
         const currentTheme = html.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -39,11 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', newTheme);
         updateThemeIcon(newTheme);
     });
-    
+
     function updateThemeIcon(theme) {
         const icon = themeToggle.querySelector('i');
         icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-        
+
         // Toggle logo visibility based on theme
         if (theme === 'dark') {
             logoLight.style.display = 'block';
@@ -58,13 +58,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
     const navLinks = document.querySelector('.nav-links');
     const overlay = document.querySelector('.overlay');
-    
+
     mobileNavToggle.addEventListener('click', () => {
         const isOpen = navLinks.classList.toggle('active');
         mobileNavToggle.classList.toggle('active');
         overlay.classList.toggle('active');
         document.body.classList.toggle('no-scroll', isOpen);
-        
+
         // Animate nav links when opening
         if (isOpen) {
             const links = navLinks.querySelectorAll('a');
@@ -73,13 +73,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-    
+
     // Close mobile menu when clicking on overlay or a nav link
     overlay.addEventListener('click', closeMobileMenu);
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', closeMobileMenu);
     });
-    
+
     function closeMobileMenu() {
         navLinks.classList.remove('active');
         mobileNavToggle.classList.remove('active');
@@ -91,10 +91,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 window.scrollTo({
@@ -113,10 +113,10 @@ document.addEventListener('DOMContentLoaded', function() {
         let charIndex = 0;
         let isDeleting = false;
         let isEnd = false;
-        
+
         function type() {
             const currentText = phrases[currentPhrase];
-            
+
             if (isDeleting) {
                 typingElement.textContent = currentText.substring(0, charIndex - 1);
                 charIndex--;
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 typingElement.textContent = currentText.substring(0, charIndex + 1);
                 charIndex++;
             }
-            
+
             if (!isDeleting && charIndex === currentText.length) {
                 isEnd = true;
                 setTimeout(() => {
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(type, speed);
             }
         }
-        
+
         setTimeout(type, 1000);
     }
 
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 progressBar.style.width = `${percent}%`;
             });
         };
-        
+
         // Use IntersectionObserver to trigger animation when skills section is in view
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }, { threshold: 0.2 });
-        
+
         observer.observe(document.querySelector('.skills'));
     }
 
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 description: 'Arama motorlarında üst sıralarda çıkmanız için SEO çalışmaları.'
             }
         ];
-        
+
         services.forEach(service => {
             const serviceCard = document.createElement('div');
             serviceCard.className = 'service-card';
@@ -222,16 +222,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const portfolioItems = document.querySelectorAll('.portfolio-item');
     const portfolioGrid = document.querySelector('.portfolio-grid');
-    
+
     if (filterButtons.length > 0 && portfolioItems.length > 0) {
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 // Update active state of buttons
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
-                
+
                 const filter = button.getAttribute('data-filter');
-                
+
                 // Filter portfolio items
                 portfolioItems.forEach(item => {
                     if (filter === 'all' || item.getAttribute('data-category').includes(filter)) {
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         item.style.display = 'none';
                     }
                 });
-                
+
                 // Re-layout the grid
                 setTimeout(() => {
                     if (typeof Masonry !== 'undefined') {
@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Portfolio Modal
     const portfolioModal = document.getElementById('projectModal');
     const portfolioModalContent = portfolioModal.querySelector('.project-modal-content');
-    
+
     document.querySelectorAll('.portfolio-item').forEach(item => {
         item.addEventListener('click', () => {
             // In a real implementation, you would fetch actual project data here
@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 categories: "Web Tasarım, UI/UX",
                 link: "#"
             };
-            
+
             // Populate modal with project data
             portfolioModal.querySelector('.project-title').textContent = projectData.title;
             portfolioModal.querySelector('.project-category').textContent = projectData.category;
@@ -282,16 +282,16 @@ document.addEventListener('DOMContentLoaded', function() {
             portfolioModal.querySelector('.project-date').textContent = projectData.date;
             portfolioModal.querySelector('.project-categories').textContent = projectData.categories;
             portfolioModal.querySelector('.project-link').setAttribute('href', projectData.link);
-            
+
             // Set main image (in a real implementation, you would have multiple images)
             const mainImage = portfolioModal.querySelector('.project-main-image img');
             mainImage.src = "assets/images/portfolio-sample.jpg";
             mainImage.alt = projectData.title;
-            
+
             // Clear thumbnails and add new ones (demo with 3 images)
             const thumbnailsContainer = portfolioModal.querySelector('.project-thumbnails');
             thumbnailsContainer.innerHTML = '';
-            
+
             for (let i = 1; i <= 3; i++) {
                 const thumbnail = document.createElement('img');
                 thumbnail.src = `assets/images/portfolio-sample-${i}.jpg`;
@@ -299,18 +299,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 thumbnail.addEventListener('click', () => {
                     mainImage.src = thumbnail.src;
                     mainImage.alt = thumbnail.alt;
-                    
+
                     // Update active thumbnail
                     thumbnailsContainer.querySelectorAll('img').forEach(img => {
                         img.classList.remove('active');
                     });
                     thumbnail.classList.add('active');
                 });
-                
+
                 if (i === 1) thumbnail.classList.add('active');
                 thumbnailsContainer.appendChild(thumbnail);
             }
-            
+
             // Show modal
             openModal(portfolioModal);
         });
@@ -342,12 +342,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Duplicate client logos for seamless looping
         const logos = clientTrack.innerHTML;
         clientTrack.innerHTML = logos + logos;
-        
+
         // Pause animation on hover
         clientTrack.addEventListener('mouseenter', () => {
             clientTrack.style.animationPlayState = 'paused';
         });
-        
+
         clientTrack.addEventListener('mouseleave', () => {
             clientTrack.style.animationPlayState = 'running';
         });
@@ -364,24 +364,24 @@ document.addEventListener('DOMContentLoaded', function() {
                         const duration = 2000;
                         const start = 0;
                         const increment = target / (duration / 16);
-                        
+
                         let current = start;
                         const timer = setInterval(() => {
                             current += increment;
                             stat.textContent = Math.floor(current);
-                            
+
                             if (current >= target) {
                                 stat.textContent = target;
                                 clearInterval(timer);
                             }
                         }, 16);
                     });
-                    
+
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
-        
+
         observer.observe(document.querySelector('.stats-section'));
     }
 
@@ -390,28 +390,28 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             // Reset error messages
             document.querySelectorAll('.error-message').forEach(el => {
                 el.textContent = '';
                 el.style.display = 'none';
             });
-            
+
             // Get form values
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const subject = document.getElementById('subject').value.trim();
             const message = document.getElementById('message').value.trim();
-            
+
             let isValid = true;
-            
+
             // Validate name
             if (!name) {
                 document.getElementById('nameError').textContent = 'Lütfen adınızı giriniz';
                 document.getElementById('nameError').style.display = 'block';
                 isValid = false;
             }
-            
+
             // Validate email
             if (!email) {
                 document.getElementById('emailError').textContent = 'Lütfen email adresinizi giriniz';
@@ -422,14 +422,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('emailError').style.display = 'block';
                 isValid = false;
             }
-            
+
             // Validate subject
             if (!subject) {
                 document.getElementById('subjectError').textContent = 'Lütfen konu giriniz';
                 document.getElementById('subjectError').style.display = 'block';
                 isValid = false;
             }
-            
+
             // Validate message
             if (!message) {
                 document.getElementById('messageError').textContent = 'Lütfen mesajınızı giriniz';
@@ -440,17 +440,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('messageError').style.display = 'block';
                 isValid = false;
             }
-            
+
             // If form is valid, submit it (in a real implementation, you would use AJAX)
             if (isValid) {
                 const feedback = document.querySelector('.form-feedback');
                 feedback.textContent = 'Mesajınız başarıyla gönderildi! En kısa sürede sizinle iletişime geçeceğiz.';
                 feedback.classList.add('success');
                 feedback.style.display = 'block';
-                
+
                 // Reset form
                 contactForm.reset();
-                
+
                 // Hide feedback after 5 seconds
                 setTimeout(() => {
                     feedback.style.display = 'none';
@@ -462,34 +462,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // Privacy Modal
     const privacyModal = document.getElementById('privacyModal');
     const privacyLink = document.getElementById('privacyLink');
-    
+
     if (privacyLink) {
         privacyLink.addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             // In a real implementation, you would load the privacy policy content here
             const privacyContent = `
                 <h3>Gizlilik Politikası</h3>
                 <p>Lars Design olarak, ziyaretçilerimizin gizliliğine büyük önem veriyoruz. Bu gizlilik politikası, kişisel bilgilerinizin nasıl toplandığını, kullanıldığını ve korunduğunu açıklamaktadır.</p>
-                
+
                 <h4>Toplanan Bilgiler</h4>
                 <p>Web sitemizi ziyaret ettiğinizde, IP adresiniz, tarayıcı türünüz, işletim sisteminiz ve ziyaret saatleriniz gibi bazı teknik bilgiler otomatik olarak kaydedilebilir.</p>
-                
+
                 <h4>Çerezler (Cookies)</h4>
                 <p>Sitemiz, kullanıcı deneyimini iyileştirmek için çerezler kullanmaktadır. Çerezler, web sitenin düzgün çalışmasını sağlamak ve kullanım istatistikleri toplamak için kullanılır.</p>
-                
+
                 <h4>Bilgilerin Kullanımı</h4>
                 <p>Toplanan bilgiler, web sitemizi iyileştirmek, kullanıcı deneyimini geliştirmek ve yasal yükümlülüklerimizi yerine getirmek için kullanılır.</p>
-                
+
                 <h4>Bilgilerin Paylaşılması</h4>
                 <p>Kişisel bilgileriniz, yasal bir zorunluluk olmadıkça üçüncü taraflarla paylaşılmaz.</p>
-                
+
                 <h4>Güvenlik</h4>
                 <p>Kişisel bilgilerinizin güvenliği için uygun teknik ve organizasyonel önlemleri alıyoruz.</p>
-                
+
                 <p>Bu politika 1 Ocak 2023 tarihinden itibaren geçerlidir ve güncellenebilir. Güncellemelerden haberdar olmak için bu sayfayı periyodik olarak kontrol etmenizi öneririz.</p>
             `;
-            
+
             privacyModal.querySelector('.modal-body').innerHTML = privacyContent;
             openModal(privacyModal);
         });
@@ -499,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function openModal(modal) {
         modal.style.display = 'block';
         document.body.classList.add('no-scroll');
-        
+
         // Close modal when clicking on close button or outside content
         modal.querySelector('.close-modal').addEventListener('click', () => closeModal(modal));
         modal.addEventListener('click', (e) => {
@@ -508,7 +508,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     function closeModal(modal) {
         modal.style.display = 'none';
         document.body.classList.remove('no-scroll');
@@ -516,7 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Scroll to Top Button
     const scrollTopBtn = document.getElementById('scrollTop');
-    
+
     window.addEventListener('scroll', () => {
         if (window.pageYOffset > 300) {
             scrollTopBtn.classList.add('active');
@@ -524,7 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollTopBtn.classList.remove('active');
         }
     });
-    
+
     scrollTopBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
@@ -538,29 +538,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Custom Cursor
     const cursorFollower = document.querySelector('.cursor-follower');
     const cursorDot = document.querySelector('.cursor-dot');
-    
+
     if (cursorFollower && cursorDot) {
         document.addEventListener('mousemove', (e) => {
             cursorDot.style.left = `${e.clientX}px`;
             cursorDot.style.top = `${e.clientY}px`;
-            
+
             // Delayed movement for the follower
             setTimeout(() => {
                 cursorFollower.style.left = `${e.clientX}px`;
                 cursorFollower.style.top = `${e.clientY}px`;
             }, 100);
         });
-        
+
         // Cursor effects on interactive elements
         const interactiveElements = document.querySelectorAll('a, button, .portfolio-item, .service-card, input, textarea');
-        
+
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
                 cursorFollower.style.backgroundColor = 'rgba(255, 51, 102, 0.4)';
                 cursorDot.style.transform = 'translate(-50%, -50%) scale(0.5)';
             });
-            
+
             el.addEventListener('mouseleave', () => {
                 cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
                 cursorFollower.style.backgroundColor = 'rgba(255, 51, 102, 0.2)';
@@ -700,7 +700,7 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
     // Lazy loading for images
     const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-    
+
     if ('IntersectionObserver' in window) {
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -712,7 +712,7 @@ window.addEventListener('load', function() {
                 }
             });
         }, { rootMargin: '200px' });
-        
+
         lazyImages.forEach(img => imageObserver.observe(img));
     }
 });
